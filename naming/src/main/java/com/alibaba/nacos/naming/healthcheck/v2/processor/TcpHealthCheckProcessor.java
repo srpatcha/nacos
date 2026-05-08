@@ -183,6 +183,8 @@ public class TcpHealthCheckProcessor implements HealthCheckProcessorV2, Runnable
                     channel.finishConnect();
                     beat.finishCheck(true, false, System.currentTimeMillis() - beat.getTask().getStartTime(),
                             "tcp:ok+");
+                    key.cancel();
+                    key.channel().close();
                 }
                 
                 if (key.isValid() && key.isReadable()) {
